@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHANTOM ROLEPLAY</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',sans-serif; color:#fff; min-height:100vh; overflow-x:hidden; }
+
+/* ============================================
+   INTRO ANIMATION WITH GIF
+   ============================================ */
+#intro {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #0a051e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    animation: introFade 4s ease forwards;
+}
+
+#intro .intro-gif {
+    max-width: 80%;
+    max-height: 60vh;
+    object-fit: contain;
+    opacity: 0;
+    transform: scale(0.5);
+    animation: introGif 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
+               introGlow 2s ease-in-out 1.5s infinite;
+    filter: drop-shadow(0 0 30px #ff0000);
+}
+
+#intro .loader {
+    margin-top: 40px;
+    width: 250px;
+    height: 4px;
+    background: rgba(255,0,0,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    opacity: 0;
+    animation: introFadeIn 0.5s ease 1.5s forwards;
+}
+
+#intro .loader::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #ff0000, #ffffff, #000000, #ff0000);
+    animation: introLoad 2s ease 1.5s forwards;
+}
+
+@keyframes introGif {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.5);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1);
+    }
+}
+
+@keyframes introGlow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 30px #ff0000) drop-shadow(0 0 50px #ff0000);
+    }
+    50% { 
+        filter: drop-shadow(0 0 50px #ffffff) drop-shadow(0 0 80px #ff0000);
+    }
+}
+
+@keyframes introFadeIn {
+    to { opacity: 1; }
+}
+@keyframes introLoad {
+    to { width: 100%; }
+}
+@keyframes introFade {
+    0%, 88% { opacity: 1; visibility: visible; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* ============================================
+   SITE CONTENT
+   ============================================ */
+.nav {
+    background: rgba(0,0,0,0.9);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid #ff0000;
+    animation: siteSlideDown 1s ease 4s backwards;
+}
+
+/* ============================================
+   LOGO ANIMATION - RED, BLACK, WHITE
+   ============================================ */
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ffffff, #ff0000, #000000, #ffffff, #ff0000);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    animation: logoMove 3s ease infinite, logoPulse 2s ease-in-out infinite;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.logo:hover {
+    transform: scale(1.1) rotate(-2deg);
+}
+
+@keyframes logoMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes logoPulse {
+    0%, 100% { filter: drop-shadow(0 0 10px #ff0000); }
+    50% { filter: drop-shadow(0 0 25px #ffffff) drop-shadow(0 0 40px #ff0000); }
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 15px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #ff0000, #ffffff, #ff0000);
+    transition: width 0.3s;
+}
+
+.nav a:hover {
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+.hero {
+    height: 100vh;
+    background: url('/static/background.png') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    animation: siteFadeIn 1.5s ease 4s backwards;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,5,30,0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    animation: heroUp 1.5s ease 4.5s backwards;
+}
+
+.hero h1 {
+    font-size: 80px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffffff, #ff0000, #000000, #ff0000, #ffffff);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    animation: logoMove 4s ease infinite, heroGlow 3s ease-in-out infinite;
+}
+
+@keyframes heroGlow {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(255,0,0,0.6)); }
+    50% { filter: drop-shadow(0 0 40px rgba(255,255,255,0.8)); }
+}
+
+.hero p {
+    font-size: 28px;
+    color: #d1d5db;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+}
+
+.btns {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: siteFadeIn 1s ease 5s backwards;
+}
+
+.btn {
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: 2px solid #ff0000;
+    cursor: pointer;
+    display: inline-block;
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255,0,0,0.6);
+    background: linear-gradient(135deg, #cc0000, #ff0000);
+}
+.btn.discord {
+    background: linear-gradient(135deg, #5865F2, #7289DA);
+    border-color: #5865F2;
+}
+.btn.discord:hover {
+    box-shadow: 0 10px 30px rgba(88,101,242,0.6);
+}
+
+.footer {
+    text-align: center;
+    padding: 30px;
+    background: #0a051e;
+    color: #666;
+    border-top: 2px solid #ff0000;
+}
+
+@keyframes siteSlideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes siteFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes heroUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     INTRO ANIMATION WITH GIF
+     ============================================ -->
+<div id="intro">
+    <img src="/static/intro.gif" alt="PHANTOM ROLEPLAY" class="intro-gif">
+    <div class="loader"></div>
+</div>
+
+<!-- ============================================
+     SITE CONTENT
+     ============================================ -->
+<div class="nav">
+    <div class="logo">PHANTOM ROLEPLAY</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/rules">Rules</a>
+        <a href="/apply-admin">Apply Admin</a>
+        <a href="/whitelist">Whitelist</a>
+        <a href="/vip">VIP</a>
+    </div>
+</div>
+
+<div class="hero">
+    <div class="hero-content">
+        <h1>PHANTOM</h1>
+        <p>ROLEPLAY</p>
+        <div class="btns">
+            <a href="/rules" class="btn">Read Rules</a>
+            <a href="https://discord.gg/fjFhgVMZZ" class="btn discord" target="_blank">Join Discord</a>
+        </div>
+    </div>
+</div>
+
+<div class="footer">© 2026 PHANTOM ROLEPLAY</div>
+
+</body>
+</html>

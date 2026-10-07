@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP - PHANTOM ROLEPLAY</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',sans-serif; background:#0a051e; color:#fff; min-height:100vh; }
+.nav { background:rgba(0,0,0,0.8); padding:20px 40px; display:flex; justify-content:space-between; align-items:center; position:fixed; top:0; width:100%; z-index:1000; backdrop-filter:blur(10px); }
+.logo { font-size:24px; font-weight:bold; color:#ff0000; text-shadow:0 0 20px #ff0000; }
+.nav a { color:#fff; text-decoration:none; margin-left:25px; font-size:15px; }
+.nav a:hover { color:#ff0000; }
+.container { max-width:1200px; margin:120px auto 40px; padding:20px; }
+h1 { color:#ff0000; text-align:center; font-size:42px; margin-bottom:40px; text-shadow:0 0 20px #ff0000; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:25px; }
+.card { background:rgba(20,10,40,0.8); padding:30px; border-radius:15px; border:2px solid #ff0000; text-align:center; transition:all 0.3s; }
+.card:hover { transform:translateY(-5px); box-shadow:0 0 30px #ff0000; }
+.card h3 { color:#cc0000; font-size:28px; margin-bottom:15px; }
+.card ul { list-style:none; margin:20px 0; text-align:right; }
+.card ul li { padding:8px 0; border-bottom:1px solid rgba(255,0,0,0.3); }
+.card ul li:before { content:'✓ '; color:#4ade80; }
+.price { font-size:32px; color:#4ade80; font-weight:bold; margin:20px 0; }
+.btn { display:inline-block; padding:14px 40px; background:linear-gradient(135deg,#ff0000,#990000); color:#fff; text-decoration:none; border-radius:8px; font-weight:bold; }
+.btn:hover { box-shadow:0 0 20px #ff0000; }
+</style>
+</head>
+<body>
+<div class="nav">
+<div class="logo">PHANTOM ROLEPLAY</div>
+<div><a href="/">Home</a><a href="/vip">VIP</a></div>
+</div>
+<div class="container">
+<h1>💎 VIP Packages</h1>
+<div class="grid">
+<div class="card">
+<h3>🥉 VIP Bronze</h3>
+<ul><li>VIP Tag</li><li>5% Extra Salary</li><li>2 Custom Vehicles</li></ul>
+<div class="price">500 DZD</div>
+<a href="/vip" class="btn">Buy Now</a>
+</div>
+<div class="card">
+<h3>🥈 VIP Silver</h3>
+<ul><li>All Bronze</li><li>10% Extra Salary</li><li>5 Custom Vehicles</li><li>Priority Queue</li></ul>
+<div class="price">1000 DZD</div>
+<a href="/vip" class="btn">Buy Now</a>
+</div>
+<div class="card">
+<h3>🥇 VIP Gold</h3>
+<ul><li>All Silver</li><li>20% Extra Salary</li><li>Unlimited Vehicles</li><li>Custom Skin</li><li>Private House</li></ul>
+<div class="price">2000 DZD</div>
+<a href="/vip" class="btn">Buy Now</a>
+</div>
+</div>
+</div>
+</body>
+</html>

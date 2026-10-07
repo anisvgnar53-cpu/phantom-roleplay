@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - PHANTOM</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',sans-serif; background:#fff; color:#000; }
+.nav { background:rgba(255,255,255,0.95); padding:20px 40px; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #ff0000; }
+.logo { font-size:24px; font-weight:900; color:#ff0000; }
+.nav a { color:#000; text-decoration:none; margin-left:20px; font-weight:600; }
+.nav a:hover { color:#ff0000; }
+.container { max-width:1200px; margin:30px auto; padding:20px; }
+h2 { color:#ff0000; margin:30px 0 15px; }
+table { width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; margin-bottom:30px; border:2px solid #ff0000; }
+th, td { padding:12px; text-align:right; border-bottom:1px solid rgba(255,0,0,0.2); }
+th { background:rgba(255,0,0,0.15); color:#000; font-weight:bold; }
+tr:hover { background:rgba(255,0,0,0.05); }
+.status { padding:4px 10px; border-radius:5px; font-size:12px; background:rgba(251,191,36,0.3); color:#d97706; }
+.status.accepted { background:rgba(34,197,94,0.3); color:#16a34a; }
+.status.refused { background:rgba(239,68,68,0.3); color:#dc2626; }
+.badge { display:inline-block; padding:4px 10px; border-radius:5px; font-size:11px; background:rgba(251,191,36,0.3); color:#d97706; }
+.btn { padding:8px 14px; border-radius:6px; text-decoration:none; font-size:13px; font-weight:bold; display:inline-block; margin:2px; color:#fff; border:none; cursor:pointer; transition:all 0.2s; }
+.btn.accept { background:linear-gradient(135deg,#22c55e,#16a34a); }
+.btn.accept:hover { box-shadow:0 0 15px #22c55e; transform:translateY(-2px); }
+.btn.refuse { background:linear-gradient(135deg,#ef4444,#dc2626); }
+.btn.refuse:hover { box-shadow:0 0 15px #ef4444; transform:translateY(-2px); }
+.flash { padding:12px; margin-bottom:15px; border-radius:8px; text-align:center; background:rgba(34,197,94,0.2); color:#16a34a; border:1px solid #16a34a; }
+</style>
+</head>
+<body>
+<div class="nav">
+<div class="logo">🔐 Admin Panel - PHANTOM</div>
+<div><a href="/">Home</a><a href="/logout">Logout</a></div>
+</div>
+<div class="container">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, msg in messages %}
+<div class="flash">{{ msg }}</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<h2>👑 Admin Applications ({{ admin_apps|length }})</h2>
+<table>
+<tr><th>ID</th><th>Name</th><th>Age</th><th>Discord</th><th>Hours</th><th>Experience</th><th>Status</th><th>Date</th></tr>
+{% for a in admin_apps %}
+<tr>
+<td>#{{ a[0] }}</td>
+<td>{{ a[1] }}</td>
+<td>{{ a[2] }}</td>
+<td>{{ a[3] }}</td>
+<td>{{ a[5] }}</td>
+<td>{{ a[4][:50] }}...</td>
+<td><span class="status {{ a[6] }}">{{ a[6] }}</span></td>
+<td>{{ a[7] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<h2>🎫 Whitelist Applications ({{ whitelist_apps|length }})</h2>
+<table>
+<tr>
+<th>ID</th><th>In-Game Name</th><th>Email</th><th>Discord</th>
+<th>Age</th><th>Why</th><th>Status</th><th>Date</th><th>Actions</th>
+</tr>
+{% for w in whitelist_apps %}
+<tr>
+<td>#{{ w[0] }}</td>
+<td>{{ w[1] }}</td>
+<td>{{ w[2] }}</td>
+<td>{{ w[3] }}</td>
+<td>{{ w[4] }}</td>
+<td>{{ w[5][:50] }}...</td>
+<td><span class="status {{ w[6] }}">{{ w[6] }}</span></td>
+<td>{{ w[7] }}</td>
+<td>
+{% if w[6] == 'pending' %}
+<a href="/admin/whitelist/{{ w[0] }}/accept" class="btn accept">✅ Accept</a>
+<a href="/admin/whitelist/{{ w[0] }}/refuse" class="btn refuse">❌ Refuse</a>
+{% else %}
+<span style="color:#999;">—</span>
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+
+<h2>💎 VIP Requests ({{ vip_requests|length }})</h2>
+<table>
+<tr><th>ID</th><th>Name</th><th>Email</th><th>Package</th><th>Price</th><th>Status</th><th>Date</th></tr>
+{% for v in vip_requests %}
+<tr>
+<td>#{{ v[0] }}</td>
+<td>{{ v[1] }}</td>
+<td>{{ v[2] }}</td>
+<td><span class="badge">{{ v[3] }}</span></td>
+<td>{{ v[4] }} DZD</td>
+<td><span class="status {{ v[5] }}">{{ v[5] }}</span></td>
+<td>{{ v[6] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+</body>
+</html>
